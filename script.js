@@ -38,10 +38,24 @@ function playRound(humanChoice , computerChoice) {
     console.log(`You ${res}! ${(res == "Win")?humanChoice:computerChoice} beats ${(res == "Win")?computerChoice:humanChoice}`);
     return;
 }
+
+function playGame() {
+    
+    for(let i = 0; i<5; i++) {
+        const humanSelection = getHumanChoice().toLowerCase();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+    }
+    
+}
+
 humanScore = 0;
 computerScore = 0;
-const humanSelection = getHumanChoice().toLowerCase();
-const computerSelection = getComputerChoice();
+playGame();
+if(humanScore == computerScore)
+    console.log("Draw!");
+else
+console.log(`You ${(humanScore > computerScore)? "Win":"Lose"}!`);
+    
 
-playRound(humanSelection, computerSelection);
 console.log(`score ${humanScore} : ${computerScore}`);
