@@ -16,7 +16,7 @@ let getHumanChoice = () => prompt("choice:");
 function playRound(humanChoice , computerChoice) {
     let res = "";
     if(humanChoice == computerChoice){
-        console.log("Draw!");
+        result.textContent = "Draw!";
         return;
     }
     else{
@@ -35,7 +35,7 @@ function playRound(humanChoice , computerChoice) {
     console.log(`you choose ${humanChoice} computer choose ${computerChoice}`);
     if(res == "Win") humanScore++;
     else computerScore++;
-    console.log(`You ${res}! ${(res == "Win")?humanChoice:computerChoice} beats ${(res == "Win")?computerChoice:humanChoice}`);
+    result.textContent = `You ${res}! ${(res == "Win")?humanChoice:computerChoice} beats ${(res == "Win")?computerChoice:humanChoice}`
     return;
 }
 
@@ -49,13 +49,37 @@ function playGame() {
     
 }
 
+
+//playGame();
 humanScore = 0;
 computerScore = 0;
-playGame();
-if(humanScore == computerScore)
-    console.log("Draw!");
-else
-console.log(`You ${(humanScore > computerScore)? "Win":"Lose"}!`);
-    
+const page = document.querySelector("div");
+const btnR = document.createElement("button");
+const btnP = document.createElement("button");
+const btnS = document.createElement("button");
+const result = document.createElement("div");
+const score = document.createElement("div");
+btnR.textContent = "rock";
+btnP.textContent = "paper";
+btnS.textContent = "scissor";
+const btns = [btnR, btnP, btnS];
+btns.forEach((button) => {
+    button.addEventListener("click",(e) => {
+        playRound(e.target.textContent, getComputerChoice());
+        score.textContent = `your score : ${humanScore}  computer score : ${computerScore}`;
+        if(humanScore >= 5 || computerScore >= 5) {
+            if(humanScore == computerScore)
+                console.log("Draw!");
+            else
+            console.log(`You ${(humanScore > computerScore)? "Win":"Lose"}!`);
+            console.log(`score ${humanScore} : ${computerScore}`);
+        }
+        page.appendChild(result);
+        page.append(score);  
+    })
+    page.appendChild(button);
+})
 
-console.log(`score ${humanScore} : ${computerScore}`);
+
+
+
